@@ -1,4 +1,4 @@
-import type { Item, Story } from "./types";
+import type { Comment, Item, Story } from "./types";
 
 export function renderStories(stories: Story[]): string {
   return stories
@@ -24,11 +24,17 @@ export function renderItem(item: Item): string {
             <span>${item.points ?? 0}</span>
             <span>${item.comments_count}</span>
             <span>${item.comments
-              .map(
-                (comment, index) =>
-                  `<p>${comment.content}</p>
-              <p>${comment.user ?? "Deleted User"}</p>`,
-              )
+              .map((comment) => renderComment(comment, 0))
               .join("")}</span>
         </div>`;
+}
+
+function renderComment(comment: Comment, depth: number): string {
+  const indent = depth * 24;
+  return `
+  <div style="margin-left: ${indent}px">
+      <p><strong>${comment.user ?? "Deleted User"}</strong> ${comment.time_ago}</p>
+      <div>${comment.content}</div>
+      ${comment.comments.map((c) => renderComment(c, depth + 1)).join("")}
+    </div>`;
 }
