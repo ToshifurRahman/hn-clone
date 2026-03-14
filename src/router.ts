@@ -18,7 +18,7 @@ async function navigate() {
     const feed = parts[0] || "news";
     const stories = await fetchStories(feed);
     if (app) {
-      app.innerHTML = renderStories(stories);
+      app.innerHTML = renderStories(stories, feed);
     }
   }
 }

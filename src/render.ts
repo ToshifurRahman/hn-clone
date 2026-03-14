@@ -1,7 +1,11 @@
 import type { Comment, Item, Story } from "./types";
 
-export function renderStories(stories: Story[]): string {
-  return stories
+const feeds = ["news", "newest", "ask", "show", "jobs"];
+
+export function renderStories(stories: Story[], feed: string): string {
+  return `
+  ${renderNav(feed)}
+  ${stories
     .map(
       (story, index) =>
         `<div>
@@ -13,11 +17,12 @@ export function renderStories(stories: Story[]): string {
             <span>${story.comments_count}</span>
         </div>`,
     )
-    .join("");
+    .join("")}`;
 }
 
 export function renderItem(item: Item): string {
   return `<div>
+            ${renderNav("item")}
             <a href="${item.url}">${item.title}</a>
             <span>${item.domain}</span>
             <span>${item.time_ago}</span>
@@ -37,4 +42,14 @@ function renderComment(comment: Comment, depth: number): string {
       <div>${comment.content}</div>
       ${comment.comments.map((c) => renderComment(c, depth + 1)).join("")}
     </div>`;
+}
+
+function renderNav(activeFeed: string): string {
+  const links = feeds
+    .map(
+      (f) =>
+        `<a href="#/${f}" class="${f === activeFeed ? "font-bold" : ""}">${f}</a>`,
+    )
+    .join(" | ");
+  return `<nav>${links}</nav>`;
 }
