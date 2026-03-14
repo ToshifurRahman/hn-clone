@@ -2,7 +2,11 @@ import type { Comment, Item, Story } from "./types";
 
 const feeds = ["news", "newest", "ask", "show", "jobs"];
 
-export function renderStories(stories: Story[], feed: string, page: number): string {
+export function renderStories(
+  stories: Story[],
+  feed: string,
+  page: number,
+): string {
   const items = stories
     .map(
       (story, index) => `
