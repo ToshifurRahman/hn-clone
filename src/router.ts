@@ -11,6 +11,10 @@ export async function navigate() {
     if (app) app.innerHTML = "<p>Loading...</p>";
     if (parts[0] === "item") {
       const id = Number(parts[1]);
+      if (!Number.isInteger(id) || id <= 0) {
+        if (app) app.innerHTML = "<p>Invalid item id.</p>";
+        return;
+      }
       const item = await fetchItem(id);
       if (app) {
         app.innerHTML = renderItem(item);
@@ -18,6 +22,10 @@ export async function navigate() {
     } else {
       const feed = parts[0] || "news";
       const page = parseInt(parts[1]) || 1;
+      if (!Number.isInteger(page) || page <= 0) {
+        if (app) app.innerHTML = "<p>Invalid page number.</p>";
+        return;
+      }
       const stories = await fetchStories(feed, page);
       if (app) {
         app.innerHTML = renderStories(stories, feed, page);
@@ -26,8 +34,8 @@ export async function navigate() {
   } catch (error) {
     if (app) {
       app.innerHTML = `<p>Error loading content. Please try again later.</p>
-      <button onclick="navigate()">Try Again</button>`;
-      document.querySelector("button")?.addEventListener("click", navigate);
+      <button id="retry-btn">Try Again</button>`;
+      document.getElementById("retry-btn")?.addEventListener("click", navigate);
     }
   }
 }
