@@ -3,10 +3,10 @@ import { renderItem, renderStories } from "./render";
 
 const app = document.getElementById("app");
 
-async function navigate() {
+export async function navigate() {
   const hash = location.hash;
   const path = hash.slice(1);
-  const parts = path.split("/");
+  const parts = path.split("/").filter(Boolean);
   try {
     if (app) app.innerHTML = "<p>Loading...</p>";
     if (parts[0] === "item") {
@@ -17,7 +17,7 @@ async function navigate() {
       }
     } else {
       const feed = parts[0] || "news";
-      const page = parseInt(parts[2]) || 1;
+      const page = parseInt(parts[1]) || 1;
       const stories = await fetchStories(feed, page);
       if (app) {
         app.innerHTML = renderStories(stories, feed, page);
