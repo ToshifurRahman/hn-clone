@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { Story } from "../types";
 
 // Mock api module before importing router
 vi.mock("../api", () => ({
@@ -96,14 +97,14 @@ describe("router integration", () => {
   });
 
   it("sets app innerHTML to loading state initially", async () => {
-    let resolveStories!: (v: unknown) => void;
+    let resolveStories!: (v: Story[]) => void;
 
     window.location.hash = "#/news";
     const { navigate } = await import("../router");
     await new Promise((r) => setTimeout(r, 0));
 
     vi.mocked(fetchStories).mockReturnValueOnce(
-      new Promise((res) => { resolveStories = res; })
+      new Promise<Story[]>((res) => { resolveStories = res; })
     );
 
     const navPromise = navigate();
