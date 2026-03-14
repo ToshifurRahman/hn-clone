@@ -16,9 +16,10 @@ async function navigate() {
     }
   } else {
     const feed = parts[0] || "news";
-    const stories = await fetchStories(feed);
+    const page = parseInt(parts[2]) || 1;
+    const stories = await fetchStories(feed, page);
     if (app) {
-      app.innerHTML = renderStories(stories, feed);
+      app.innerHTML = renderStories(stories, feed, page);
     }
   }
 }

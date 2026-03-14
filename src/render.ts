@@ -2,7 +2,11 @@ import type { Comment, Item, Story } from "./types";
 
 const feeds = ["news", "newest", "ask", "show", "jobs"];
 
-export function renderStories(stories: Story[], feed: string): string {
+export function renderStories(
+  stories: Story[],
+  feed: string,
+  page: number,
+): string {
   return `
   ${renderNav(feed)}
   ${stories
@@ -15,9 +19,13 @@ export function renderStories(stories: Story[], feed: string): string {
             <span>${story.time_ago}</span>
             <span>${story.points ?? 0}</span>
             <span>${story.comments_count}</span>
+            
         </div>`,
     )
-    .join("")}`;
+    .join("")}
+    ${page > 1 ? `<a href="#/${feed}/${page - 1}">Previous</a>` : ""}
+    <a href="#/${feed}/${page + 1}">Next</a>
+  `;
 }
 
 export function renderItem(item: Item): string {
