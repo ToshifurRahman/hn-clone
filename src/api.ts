@@ -4,6 +4,9 @@ const BASE_URL = "https://api.hnpwa.com/v0";
 
 async function fetchData<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}/${path}`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch ${path}: ${res.status} ${res.statusText}`);
+  }
   return res.json();
 }
 
