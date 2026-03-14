@@ -27,7 +27,7 @@ export function renderStories(stories: Story[], feed: string, page: number): str
   return `
 <div class="min-h-screen bg-[#f6f6ef]">
   ${renderNav(feed)}
-  <div class="max-w-[85%] mx-auto">
+  <div class="w-[85%] mx-auto">
     <table class="w-full border-spacing-0">
       <tbody>
         ${items}
@@ -46,7 +46,7 @@ export function renderItem(item: Item): string {
   return `
 <div class="min-h-screen bg-[#f6f6ef]">
   ${renderNav("item")}
-  <div class="max-w-[85%] mx-auto py-2">
+  <div class="w-[85%] mx-auto py-2">
     <table class="w-full">
       <tbody>
         <tr class="athing">
@@ -94,8 +94,8 @@ function renderNav(activeFeed: string): string {
     .join(" | ");
   return `
 <header class="bg-[#ff6600] px-1 py-[2px]">
-  <div class="max-w-[85%] mx-auto flex items-center gap-2">
-    <a href="#/news" class="font-bold text-black border border-black/50 px-1 text-[10pt] mr-1 bg-white/10">Y</a>
+  <div class="w-[85%] mx-auto flex items-center gap-2">
+    <a href="#/news" class="font-bold text-white border border-black/50 px-1 text-[10pt] mr-1 bg-white/10">Y</a>
     <a href="#/news" class="font-bold text-black text-[10pt] mr-2">Hacker News</a>
     <nav class="flex gap-2 text-[10pt]">${links}</nav>
     <div class="ml-auto">
@@ -108,7 +108,7 @@ function renderNav(activeFeed: string): string {
 function renderFooter(): string {
   return `
 <footer class="border-t-2 border-[#ff6600] mt-6 py-3 text-center text-[8pt] text-[#828282]">
-  <div class="max-w-[85%] mx-auto space-x-3">
+  <div class="w-[85%] mx-auto space-x-3">
     <a href="#" class="hover:underline">Guidelines</a>
     <a href="#" class="hover:underline">FAQ</a>
     <a href="#" class="hover:underline">Lists</a>
